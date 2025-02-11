@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar JSON con JavaScript</title>
+</head>
+<body>
+    <h1>Usuarios</h1>
+    <ul id="usuarios"></ul>
+
+    <script>
+
+
+    let followingArray = [];
+
+    // Función para agregar una cadena al array
+    function agregarCadena(cadena) {
+        followingArray.push(cadena);
+        console.log(`Cadena agregada: "${cadena}"`);
+    }
+
+    // Función para buscar una cadena en el array
+    function buscarCadena(cadena) {
+        let resultados = followingArray.filter(item => item.includes(cadena));
+        if (resultados.length > 0) {
+            console.log(`Cadenas encontradas:`, resultados);
+            return resultados;
+        } else {
+            console.log(`No se encontró ninguna cadena que contenga: "${cadena}"`);
+            return [];
+        }
+    }
+
+/*fetch('usuarios.json')
+.then(response => {
+    if (!response.ok) {
+      throw new Error('Error al cargar el archivo JSON');
+    }
+    return response.json();
+  })
+  .then(seguidores => {
+    const usuariosList = document.getElementById('usuarios');
+    
+    var indice = 0;
+    // Recorre el array "usuarios" y crea elementos de lista
+    seguidores.usuarios.forEach(objeto => {
+        
+      const listItem = document.createElement('li');
+      listItem.textContent = `Nombre: ${objeto.nombre}  Indice:` + indice;
+      usuariosList.appendChild(listItem);
+      indice += 1;
+    });
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+  */
+
+fetch('following.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error al cargar el archivo JSON');
+    }
+    return response.json();
+  })
+  .then(seguidores => {
+    const usuariosList = document.getElementById('usuarios');
+    
+    var indice = 0;
+    // Recorre el array "usuarios" y crea elementos de lista
+    //seguidores[i].string_list_data[0].href
+
+    
+
+    /* Ejemplo de uso
+    agregarCadena("Hola mundo");
+    agregarCadena("Aprendiendo JavaScript");
+    agregarCadena("Bienvenidos al mundo del código");
+
+    // Buscar cadenas que contengan la palabra "mundo"
+    buscarCadena("mundo");
+
+    // Buscar cadenas que contengan la palabra "JavaScript"
+    buscarCadena("JavaScript");
+
+    // Buscar una palabra que no exista
+    buscarCadena("Python");
+    */
+
+
+    for (i = 0; i < seguidores.length; i++) {
+      //agregarCadena(seguidores[i].string_list_data[0].href);
+      console.log(seguidores[i].string_list_data[0].href);
+    } 
+     console.log("");
+     console.log("");
+     console.log("");
+     console.log("");
+     console.log("");
+     console.log("");
+    /*
+    seguidores(indice).string_list_data.forEach(objeto => {
+        
+      const listItem = document.createElement('li');
+      listItem.textContent = `Nombre: ${string_list_data.href}  Indice:` + indice;
+      usuariosList.appendChild(listItem);
+      indice += 1;
+    });
+    */
+
+    /*
+    // Declarar el array para almacenar cadenas
+    let cadenas = [];
+
+    // Función para agregar una cadena al array
+    function agregarCadena(cadena) {
+        cadenas.push(cadena);
+        console.log(`Cadena agregada: "${cadena}"`);
+    }
+
+    // Función para buscar una cadena en el array
+    function buscarCadena(cadena) {
+        let resultados = cadenas.filter(item => item.includes(cadena));
+        if (resultados.length > 0) {
+            console.log(`Cadenas encontradas:`, resultados);
+            return resultados;
+        } else {
+            console.log(`No se encontró ninguna cadena que contenga: "${cadena}"`);
+            return [];
+        }
+    }
+
+    // Ejemplo de uso
+    agregarCadena("Hola mundo");
+    agregarCadena("Aprendiendo JavaScript");
+    agregarCadena("Bienvenidos al mundo del código");
+
+    // Buscar cadenas que contengan la palabra "mundo"
+    buscarCadena("mundo");
+
+    // Buscar cadenas que contengan la palabra "JavaScript"
+    buscarCadena("JavaScript");
+
+    // Buscar una palabra que no exista
+    buscarCadena("Python");
+    */
+
+
+
+  })
+
+  fetch('followers_1.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error al cargar el archivo JSON');
+    }
+    return response.json();
+  })
+  .then(seguidos => {
+    const usuariosList = document.getElementById('usuarios');
+    
+    var indice = 0;
+    // Recorre el array "usuarios" y crea elementos de lista
+    for (i = 0; i < seguidos.length; i++) {
+      //buscarCadena(seguidos[i].string_list_data[0].href)
+      console.log(seguidos[i].string_list_data[0].href);
+    } 
+
+    /*
+    seguidores(indice).string_list_data.forEach(objeto => {
+        
+      const listItem = document.createElement('li');
+      listItem.textContent = `Nombre: ${string_list_data.href}  Indice:` + indice;
+      usuariosList.appendChild(listItem);
+      indice += 1;
+    });
+    */
+
+  })
+
+
+
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+    </script>
+</body>
+</html>
