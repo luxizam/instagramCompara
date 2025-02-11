@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar JSON con JavaScript</title>
+</head>
+<body>
+    <h1>Cargar json con js</h1>
+    <h1>Limpiar cache antes de introducir nuevos archivos.</h1>
+    <ul id="usuarios"></ul>
+
+    <script>
+
+    async function cargarJSON(url) {
+        try {
+            const respuesta = await fetch(url);
+            if (!respuesta.ok) {
+                throw new Error(`Error al cargar ${url}: ${respuesta.statusText}`);
+            }
+            const datos = await respuesta.json();
+            console.log(`Datos cargados desde ${url}:`, datos);
+            return datos;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+
+    // Función para cargar y combinar dos archivos JSON
+    async function cargarDosJSON(url1, url2) {
+    try {
+        const [datos1, datos2] = await Promise.all([cargarJSON(url1), cargarJSON(url2)]);
+        
+        console.log(datos1.length);
+
+        //console.log("");
+        
+        console.log(datos2.length);
+
+        let arrayDatos1 = [];
+        let arrayDatos2 = [];
+        
+        // Combinar o procesar los datos según tus necesidades
+        if (datos1 && datos2) {
+            
+            // almacenamos los objectos cargados en sus respectivas arrays.
+
+            for (i = 0; i < datos1.length; i++) {
+                arrayDatos1.push(datos1[i].string_list_data[0].href.toString());  
+            }
+
+            for (i = 0; i < datos2.length; i++){
+                arrayDatos2.push(datos2[i].string_list_data[0].href.toString());
+            }
+
+            for (i = 0; i < arrayDatos1.length; i++){
+                buscarCadenaArray(arrayDatos1[i],arrayDatos2);
+            }
+            
+
+            //return combinados;
+        } else {
+            console.error("No se pudieron cargar ambos archivos JSON.");
+            return null;
+        }
+    } catch (error) {
+        console.error("Error al cargar los archivos JSON:", error);
+    }
+        }
+
+        function buscarCadenaArray(buscar,almacenamientoArray) {
+            if (!almacenamientoArray.includes(buscar)) {
+                console.log(`${buscar} No existe en el array.`);
+            } 
+        }
+
+        // Función para buscar una cadena en el array
+        function buscarCadena(cadena,almacenamientoArray) {
+                var bandera = true;
+                
+                for (i = 0; i < almacenamientoArray.length && bandera; i++) {
+                
+                if(cadena===almacenamientoArray[i].string_list_data[0].href.toString()){
+                    bandera=false;
+                }
+
+                }
+
+                if(bandera){
+                    //No se encontro la cadena en el array.
+                    console.log(cadena);
+                }
+
+        }
+
+
+        // URLs de ejemplo
+        const urlArchivo1 = 'datos/following.json';
+        const urlArchivo2 = 'datos/followers_1.json';
+
+        // Llamar a la función para cargar y procesar los JSON
+        cargarDosJSON(urlArchivo1, urlArchivo2);    
+
+    </script>
+</body>
+</html>
